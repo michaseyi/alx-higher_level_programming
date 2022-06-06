@@ -2,6 +2,27 @@
 #include <stdlib.h>
 
 /**
+ * reverse - reverses a linked list
+ * @head: Pointer to the head of the linked list
+ * Return:  Pointer to the new head of the list
+ */
+
+listint_t *reverse(listint_t *head)
+{
+	listint_t *current, *next, *prev = NULL;
+
+	current = head;
+	while (current != NULL)
+	{
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	return (prev);
+}
+
+/**
  * is_palindrome - Checks if a singly linked list is a palindrome
  * @head: Pointer to the head of the linked list
  * Desc: Time complexity O(n), Space complexity O(n)
@@ -10,8 +31,8 @@
 
 int is_palindrome(listint_t **head)
 {
-	int *stack, size = 0;
-	listint_t *current;
+	int size = 0, rev_size, i;
+	listint_t *current, *prev, *rev, *rev_temp;
 
 	if (head == NULL || *head == NULL)
 		return (1);
@@ -21,26 +42,27 @@ int is_palindrome(listint_t **head)
 		current = current->next;
 		size++;
 	}
-	stack = malloc(sizeof(int) * size);
-	if (stack == NULL)
-		return (-1);
-	current = *head, size = 0;
-	while (current != NULL)
+	rev_size = size / 2;
+	current = *head;
+	while (i++ < size - rev_size)
 	{
-		stack[size++] = current->n;
+		prev = current;
 		current = current->next;
 	}
-	size--;
+	rev = reverse(current);
 	current = *head;
-	while (current != NULL)
+	rev_temp = rev;
+
+	while (rev_temp != NULL)
 	{
-		if (current->n != stack[size--])
+		if (rev_temp->n != current->n)
 		{
-			free(stack);
+			prev->next = reverse(rev);
 			return (0);
 		}
+		rev_temp = rev_temp->next;
 		current = current->next;
 	}
-	free(stack);
+	prev->next = reverse(rev);
 	return (1);
 }
