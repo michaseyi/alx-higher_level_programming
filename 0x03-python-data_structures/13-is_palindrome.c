@@ -31,7 +31,7 @@ listint_t *reverse(listint_t *head)
 
 int is_palindrome(listint_t **head)
 {
-	int size = 0, rev_size, i;
+	int size = 0, rev_size, i = 0;
 	listint_t *current, *prev, *rev, *rev_temp;
 
 	if (head == NULL || *head == NULL)
