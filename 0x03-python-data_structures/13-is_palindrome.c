@@ -25,7 +25,7 @@ listint_t *reverse(listint_t *head)
 /**
  * is_palindrome - Checks if a singly linked list is a palindrome
  * @head: Pointer to the head of the linked list
- * Desc: Time complexity O(n), Space complexity O(n)
+ * Desc: Time complexity O(n), Space complexity O(1)
  * Return: 0 if the  list is not a palindrome else 1
  */
 
