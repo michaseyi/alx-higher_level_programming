@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Containse class Square"""
+"""Contains class Square"""
 
 
 class Square:
