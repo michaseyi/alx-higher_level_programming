@@ -6,7 +6,7 @@ from math import pi
 class MagicClass:
     """Defines a MagicClass"""
 
-    def __init__(self, radius):
+    def __init__(self, radius=0):
         """Initializes a MagicClass object"""
         if type(radius) is not int and type(radius) is not float:
             raise TypeError("radius must be a number")
