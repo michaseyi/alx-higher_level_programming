@@ -1,32 +1,39 @@
 #!/usr/bin/python3
-"""Module Doc"""
+"""Containse class Square"""
 
 
 class Square:
-    """Class Doc"""
+    """Defines a square"""
 
     def __init__(self, size=0, position=(0, 0)):
-        """Function Doc"""
+        """Initializes the square object with the size param and
+           the position param
+        """
         self.size = size
         self.position = position
 
     def area(self):
-        """Function Doc"""
+        """Gets the area of the square object"""
         return self.__size ** 2
 
     @property
     def size(self):
-        """Function Doc"""
+        """Returns the size of the square object"""
         return self.__size
 
     @property
     def position(self):
-        """Function Doc"""
+        """Returns the position of the square object"""
         return self.__position
 
     @size.setter
     def size(self, value):
-        """Function Doc"""
+        """Sets the value of the private size member of the object
+           The value param must be of type int else a TypeError will be
+           raised
+           The value param must be a positive integer else a ValueError will
+           be raised
+        """
         if not isinstance(value, int):
             raise TypeError("size must be an integer")
         elif value < 0:
@@ -36,7 +43,10 @@ class Square:
 
     @position.setter
     def position(self, value):
-        """Function Doc"""
+        """Sets the value of the private position member of the object
+           The value param must be a tuple of two positive integers else
+           a TypeError will be raised
+        """
         if isinstance(value, tuple) and len(value) == 2\
                 and isinstance(value[0], int) and isinstance(value[1], int)\
                 and value[0] >= 0 and value[1] >= 0:
@@ -45,7 +55,7 @@ class Square:
             raise TypeError("position must be a tuple of 2 positive integers")
 
     def my_print(self):
-        """Function Doc"""
+        """Prints out a square matirx of size size with the '#' scharacter"""
         if self.size == 0:
             print("")
         else:
@@ -54,7 +64,10 @@ class Square:
                 print("{}{}".format(" "*self.position[0], "#"*self.size))
 
     def __str__(self):
-        """Function Doc"""
+        """Returns  a string representation of the Square object in a matrix
+           form taking into account the position
+           Returns an empty string if the size of the square object is 0
+        """
         ret = []
         if self.size == 0:
             return ""
