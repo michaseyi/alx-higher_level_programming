@@ -1,0 +1,75 @@
+==============================
+How to Use 2-matrix_divided.py
+==============================
+
+This library defines a function called ``matrix_divided()`` that divides a matrix by the given
+divisor
+
+Usage
+=====
+
+Returns a new matrix when the input matrix is a lists of lists of interger or float and the div parameter
+is an integer or float and also not zero
+
+::
+
+   >>> matrix_divided = __import__('2-matrix_divided').matrix_divided
+   >>> matrix = [
+   ... [1, 2, 3],
+   ... [4, 5, 6]
+   ... ]
+   >>> matrix_divided(matrix, 1) #doctest: +NORMALIZE_WHITESPACE
+   [[1.0, 2.0, 3.0],
+   [4.0, 5.0, 6.0]]
+
+Raises TypeError when a none integer or float value is passed as one of the elemens
+
+::
+
+   >>> matrix[0][0] = 'a'
+   >>> matrix_divided(matrix, 3) #doctest: +NORMALIZE_WHITESPACE
+   Traceback (most recent call last):
+   TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+Raises TypeError when all rows in the matrix are not of equal size
+
+::
+
+   >>> matrix[0] = [1, 2, 3, 5]
+   >>> matrix_divided(matrix, 5)
+   Traceback (most recent call last):
+   TypeError: Each row of the matrix must have the same size
+
+Raiese ZeroDivisionError when div param as a zero value
+
+::
+
+   >>> matrix[0] = [1,2,3]
+   >>> matrix_divided(matrix, 0) #doctest: +NORMALIZE_WHITESPACE
+   Traceback (most recent call last):
+   ZeroDivisionError: division by zero
+
+Raises a TypeError when the div param is not an integer or float
+
+::
+
+   >>> matrix_divided(matrix, 'd')
+   Traceback (most recent call last):
+   TypeError: div must be a number
+
+Raises a TypeError if the marix param is None
+
+::
+
+   >>> matrix_divided(None, 1)
+   Traceback (most recent call last):
+   TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+Raises error with the matrix param before the div param
+
+::
+
+   >>> matrix_divided(None, 1)
+   Traceback (most recent call last):
+   TypeError: matrix must be a matrix (list of lists) of integers/floats
+

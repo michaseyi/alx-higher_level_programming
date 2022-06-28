@@ -1,0 +1,84 @@
+==========================
+How to Use 3-say_my_name.py
+==========================
+
+This library defines a function  ``say_my_name()`` that prints out
+'My name is <first_name> <last_name>'
+where first_name and last_name are arguments to  ``say_my_name()``
+
+
+Works fine with both parameter being strings
+
+::
+
+   >>> say_my_name = __import__('3-say_my_name').say_my_name
+   >>> say_my_name('Michael', 'Adewole')
+   My name is Michael Adewole
+
+Works fine with only parameter because the last_name param is set to an empty string
+by default but first_name param must also be a string
+
+::
+
+   >>> say_my_name('Michael') #doctest: +NORMALIZE_WHITESPACE
+   My name is Michael
+
+Raises a TypeError if all the parameters are not strings
+
+::
+
+   >>> say_my_name(10, 'Michael')
+   Traceback (most recent call last):
+   TypeError: first_name must be a string
+
+::
+
+   >>> say_my_name('Michael', 10)
+   Traceback (most recent call last):
+   TypeError: last_name must be a string
+
+::
+
+   >>> say_my_name(10)
+   Traceback (most recent call last):
+   TypeError: first_name must be a string
+
+It will also raise a TypeError if a None value is passed
+
+::
+
+   >>> say_my_name(None)
+   Traceback (most recent call last):
+   TypeError: first_name must be a string
+
+::
+
+   >>> say_my_name('Michael', None)
+   Traceback (most recent call last):
+   TypeError: last_name must be a string
+
+::
+
+   >>> say_my_name(None, None)
+   Traceback (most recent call last):
+   TypeError: first_name must be a string
+
+It will raise a TypeError if a floating number is passed
+
+::
+
+   >>> say_my_name(10.333)
+   Traceback (most recent call last):
+   TypeError: first_name must be a string
+
+::
+
+   >>> say_my_name('Michael', 3.2222)
+   Traceback (most recent call last):
+   TypeError: last_name must be a string
+
+::
+
+   >>> say_my_name(8.999, 7.321)
+   Traceback (most recent call last):
+   TypeError: first_name must be a string

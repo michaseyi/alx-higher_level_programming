@@ -1,0 +1,94 @@
+============================
+How to Use 0-add_integer.py
+===========================
+
+
+This library defines a function that adds two numbers called ``add_integer()``.
+
+Numbers
+=======
+
+``add_integer()`` returns the sum of the two arguments passed to it.
+
+::
+
+	>>> add_integer = __import__('0-add_integer').add_integer
+	>>> add_integer(1,3)
+	4
+
+It works on negative numbers
+
+::
+
+	>>> add_integer(-10, -2)
+	-12
+
+It works on floating point numbers
+
+::
+
+	>>> add_integer(10.2, 8.7)
+	18
+
+It also works on single argument, second argument is set to 98 by default
+
+::
+
+	>>> add_integer(2)
+	100
+
+Non-Numbers
+===========
+
+``add_integer()`` will raise a TypeError when any type other than an int or float
+is passed as an argument to it
+
+It raises a TypeError when a string is passed
+
+::
+
+	>>> add_integer('1', 10)
+	Traceback (most recent call last):
+	TypeError: a must be an integer
+
+::
+
+	>>> add_integer(10, 'b')
+	Traceback (most recent call last):
+	TypeError: b must be an integer
+
+None type also fails
+
+::
+
+	>>> add_integer(None)
+	Traceback (most recent call last):
+	TypeError: a must be an integer
+
+Fails with float inf and float -inf
+
+::
+
+	>>> add_integer(float('-inf')) 
+	Traceback (most recent call last):
+	OverflowError: cannot convert float infinity to integer
+
+::
+
+	>>> add_integer(1, float('-inf')) 
+	Traceback (most recent call last):
+	OverflowError: cannot convert float infinity to integer
+	
+::
+
+	>>> add_integer(float('inf')) 
+	Traceback (most recent call last):
+	OverflowError: cannot convert float infinity to integer
+
+::
+	>>> add_integer(float('inf')) 
+	Traceback (most recent call last):
+	OverflowError: cannot convert float infinity to integer
+	>>> add_integer(1, float('inf')) 
+	Traceback (most recent call last):
+	OverflowError: cannot convert float infinity to integer
