@@ -85,3 +85,7 @@ Raises error with the matrix param before the div param
    Traceback (most recent call last):
    TypeError: matrix_divided() missing 2 required positional arguments: 'matrix' and 'div'
 
+::
+
+   >>> matrix_divided(matrix, float('inf'))
+   [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
