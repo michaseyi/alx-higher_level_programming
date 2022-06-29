@@ -69,7 +69,7 @@ def matrix_divided(matrix, div):
             if not isinstance(j, int) and not isinstance(j, float):
                 raise \
                     TypeError('matrix must be a matrix (list of lists) \
-              of integers/floats')
+of integers/floats')
     if not isinstance(div, int) and not isinstance(div, float):
         raise TypeError('div must be a number')
     elif div == 0:
