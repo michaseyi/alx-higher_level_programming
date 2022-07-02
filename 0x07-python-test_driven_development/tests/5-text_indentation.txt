@@ -104,3 +104,10 @@ with 2 new lines after each of these characters: ., ? and :
    >>> text_indentation(111.111)
    Traceback (most recent call last):
    TypeError: text must be a string
+
+
+::
+
+   >>> text_indentation()
+   Traceback (most recent call last):
+   TypeError: text_indentation() missing 1 required positional argument: 'text'

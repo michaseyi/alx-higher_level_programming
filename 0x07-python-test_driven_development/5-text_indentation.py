@@ -18,10 +18,6 @@
 
 """
 
-
-from cgi import test
-
-
 def text_indentation(text):
     """
     usage
