@@ -82,3 +82,10 @@ It will raise a TypeError if a floating number is passed
    >>> say_my_name(8.999, 7.321)
    Traceback (most recent call last):
    TypeError: first_name must be a string
+
+::
+
+   >>> say_my_name()
+   Traceback (most recent call last):
+   TypeError: say_my_name() missing 1 required positional argument: 'first_name'
+

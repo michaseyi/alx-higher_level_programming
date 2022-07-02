@@ -89,3 +89,5 @@ Raises error with the matrix param before the div param
 
    >>> matrix_divided(matrix, float('inf'))
    [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
+
+
