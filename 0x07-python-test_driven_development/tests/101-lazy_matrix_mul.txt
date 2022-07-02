@@ -34,7 +34,7 @@ This module defines a function ``lazy_matrix_mul()`` that takes in two
 
    >>> lazy_matrix_mul(["not a list"],[[1, 2]])
    Traceback (most recent call last):
-   numpy.core._exceptions._UFuncNoLoopError: ufunc 'matmul' did not contain a loop with signature matching types (dtype('<U10'), dtype('int64')) -> None
+   ValueError: Scalar operands are not allowed, use '*' instead
 
 ::
 
