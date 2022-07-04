@@ -3,7 +3,6 @@ import sys
 sys.path.append(".")
 lookup = __import__('0-lookup').lookup
 
-
 class MyClass1(object):
     pass
 
