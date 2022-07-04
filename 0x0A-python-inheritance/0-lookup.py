@@ -13,6 +13,4 @@ def lookup(obj):
     :param obj(object): is the object to be looked up
     :return List[str]: is a list of strings
     """
-    res = [prop for cl in obj.__mro__ for prop in cl.__dict__]
-    res.sort()
-    return res
+    return dir(obj)
