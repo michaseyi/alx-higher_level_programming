@@ -1,0 +1,5 @@
+#!/bin/bash
+chmod u+x *.py
+git add .
+git commit -m "python inheritance"
+git push
