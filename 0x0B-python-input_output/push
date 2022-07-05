@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+chmod u+x *.py
+git add .
+git commit -m "python input and output"
+git push
