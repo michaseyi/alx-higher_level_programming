@@ -11,7 +11,7 @@ def print_stat(table, total_file_size):
     sorted_list = table.keys()
     for key in sorted_list:
         if table[key] > 0:
-            print("{}: {}".format(key, table[key]))
+            print("{:d}: {:d}".format(key, table[key]))
 
 
 if __name__ == "__main__":
