@@ -32,7 +32,7 @@ if __name__ == "__main__":
             try:
                 if int(line[7]) in table.keys():
                     table[int(line[7])] += 1
-            except (IndexError):
+            except (IndexError, ValueError):
                 pass
             line_count += 1
         print_stat(table, total_file_size)
