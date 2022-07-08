@@ -2,6 +2,7 @@
 """Defines a Rectangle class"""
 from base import Base
 
+
 class Rectangle(Base):
     """Creates a rectangle object and inherits from the
        Base class
@@ -26,7 +27,7 @@ class Rectangle(Base):
     @property
     def width(self):
         """
-        width is a property with both a getter and setter to the 
+        width is a property with both a getter and setter to the
         private __width attribute of the object
         """
         return self.__width
@@ -42,7 +43,7 @@ class Rectangle(Base):
     @property
     def height(self):
         """
-        height is a property with both a getter and setter to the 
+        height is a property with both a getter and setter to the
         private __height attribute of the object
         """
         return self.__height
@@ -58,7 +59,7 @@ class Rectangle(Base):
     @property
     def x(self):
         """
-        x is a property with both a getter and setter to the 
+        x is a property with both a getter and setter to the
         private __x attribute of the object
         """
         return self.__x
@@ -74,7 +75,7 @@ class Rectangle(Base):
     @property
     def y(self):
         """
-        y is a property with both a getter and setter to the 
+        y is a property with both a getter and setter to the
         private __width attribute  of the object
         """
         return self.__y
@@ -97,19 +98,25 @@ class Rectangle(Base):
 
     def display(self):
         """
-        display prints in the stdout the Rectangle instance with the character #
+        display prints in the stdout the Rectangle instance with the
+        character #
         """
         print(('\n' * self.y) +
-              ((((' ' * self.x)+("#" * self.width)) + '\n') * self.height), end="")
+              ((((' ' * self.x)+("#" * self.width)) + '\n') * self.height),
+              end="")
 
     def __str__(self):
         """
-        __str__ returns a nicely formated representation of the Rectangle instance
+        __str__ returns a nicely formated representation of the Rectangle
+         instance
 
-        :return (str): a nicely formated representation of the Rectangle instance
+        :return (str): a nicely formated representation of the Rectangle
+         instance
         """
         return('[Rectangle] ({}) {}/{} - {}/{}'.format(self.id,
-                                                       self.x, self.y, self.width, self.height))
+                                                       self.x, self.y,
+                                                       self.width,
+                                                       self.height))
 
     def update(self, *args, **kwargs):
         """
@@ -150,4 +157,5 @@ class Rectangle(Base):
         ret['height'] = self.height
         ret['width'] = self.width
         return ret
+
 

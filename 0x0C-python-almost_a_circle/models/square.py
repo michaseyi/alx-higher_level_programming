@@ -29,7 +29,7 @@ class Square(Rectangle):
     @property
     def size(self):
         """
-        size is a property with both a getter and setter to the 
+        size is a property with both a getter and setter to the
         private __height and __width attribute of the object
         """
         return self.width
