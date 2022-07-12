@@ -156,7 +156,7 @@ class Base:
                     objs.append(obj)
                 objs = list(map(lambda obj: cls.create(**obj), objs))
                 return objs
-        except FileExistsError:
+        except IOError:
             return []
 
     @staticmethod
