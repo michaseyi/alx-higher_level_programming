@@ -77,7 +77,7 @@ class Base:
         """
         if cls == Base:
             return
-        new_obj = cls(1, 1)
+        new_obj = cls(1) if cls.__name__ == "Square" else cls(1, 1)
         new_obj.update(**dictionary)
         return new_obj
 
