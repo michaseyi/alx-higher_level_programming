@@ -45,10 +45,11 @@ class Base:
         from the Base class
         """
         data = None
-        for obj in list_objs:
-            if data is None:
-                data = []
-            data.append(obj.to_dictionary())
+        if list_objs is not None:
+            for obj in list_objs:
+                if data is None:
+                    data = []
+                data.append(obj.to_dictionary())
         data = Base.to_json_string(data)
         with open("{}.json".format(cls.__name__), 'w',
                   encoding="utf-8") as file:
