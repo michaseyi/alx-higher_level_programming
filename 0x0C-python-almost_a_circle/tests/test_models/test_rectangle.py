@@ -16,6 +16,18 @@ class TestRectangleInitilization(unittest.TestCase):
         b = Rectangle(10, 10, 1, 1)
         self.assertEqual(a.height, b.height)
 
+    def test_no_param(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle()
+        self.assertEqual(str(e.exception), "__init__() missing 2 \
+required positional arguments: 'width' and 'height'")
+
+    def test_one_param(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10)
+        self.assertEqual(str(e.exception), "__init__() missing 1 \
+required positional argument: 'height'")
+
     def test_height_less_than_or_equals_to_zero(self):
         with self.assertRaises(ValueError) as e:
             Rectangle(10, 0)

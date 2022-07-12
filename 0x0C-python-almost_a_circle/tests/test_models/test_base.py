@@ -2,6 +2,8 @@
 """Unittest for models/base.py"""
 import unittest
 from models.base import Base
+from models.rectangle import Rectangle
+from models.square import Square
 
 
 class TestBaseInitilization(unittest.TestCase):
@@ -88,6 +90,34 @@ class TestBaseInitilization(unittest.TestCase):
     def test_list_type_as_param(self):
         self.assertEqual(list, Base(list).id)
 
+
+class TestToJsonString(unittest.TestCase):
+
+    def test_no_param(self):
+        with self.assertRaises(TypeError) as e:
+            Base.to_json_string()
+        self.assertEqual(str(e.exception), "to_json_string() missing 1 \
+required positional argument: 'list_dictionaries'")
+
+    def test_none_param(self):
+        self.assertEqual(Base.to_json_string(None), "[]")
+
+    def test_rectangle_object_dict(self):
+        a = Rectangle(10, 10, id=10).to_dictionary()
+        self.assertEqual(Base.to_json_string([a]), '[{"x": 0, "y": 0,\
+ "id": 10, "height": 10, "width": 10}]')
+
+    def test_square_object_dict(self):
+        a = Square(10, id=11).to_dictionary()
+        self.assertEqual(Base.to_json_string([a]), '[{"id": 11,\
+ "x": 0, "size": 10, "y": 0}]')
+
+    def test_square_and_rectangle_object(self):
+        a = Square(10, id=11).to_dictionary()
+        b = Rectangle(10, 10, id=12).to_dictionary()
+        self.assertEqual(Base.to_json_string([a, b]), '[{"id": 11,\
+ "x": 0, "size": 10, "y": 0}, {"x": 0, "y": 0,\
+ "id": 12, "height": 10, "width": 10}]')
 
 if __name__ == "__main__":
     unittest.main()
