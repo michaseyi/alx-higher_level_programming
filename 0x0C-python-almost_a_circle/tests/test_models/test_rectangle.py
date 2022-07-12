@@ -1,0 +1,358 @@
+#!/usr/bin/python3
+
+
+import io
+import sys
+from models.rectangle import Rectangle
+import unittest
+
+
+class TestRectangleInitilization(unittest.TestCase):
+
+    def test_height(self):
+        a = Rectangle(10, 10, 1, 1)
+        b = Rectangle(10, 10, 1, 1)
+        self.assertEqual(a.height, b.height)
+
+    def test_height_less_than_or_equals_to_zero(self):
+        self.assertRaises(ValueError, lambda: Rectangle(10, 0))
+
+    def test_height_string(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, '1'))
+
+    def test_height_float(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, 1.00))
+
+    def test_height_list(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, [1, 2]))
+
+    def test_height_tuple(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, (1, 2)))
+
+    def test_height_complex(self):
+        self.assertRaises(TypeError, lambda: Rectangle(
+            1, complex(real=1.2, imag=2)))
+
+    def test_height_very_large_number(self):
+        self.assertRaises(TypeError, lambda:  Rectangle(1, float('inf')))
+
+    def test_height_None_value(self):
+        self.assertRaises(TypeError, lambda: Rectangle(1, None))
+
+    def test_height_bool(self):
+        self.assertRaises(TypeError, lambda: Rectangle(False, 10, 10))
+
+    def test_width(self):
+        a = Rectangle(10, 10, 1, 1)
+        b = Rectangle(10, 10, 1, 1)
+        self.assertEqual(a.width, b.width)
+
+    def test_width_less_than_or_equals_to_zero(self):
+        self.assertRaises(ValueError, lambda: Rectangle(0, 10))
+
+    def test_width_string(self):
+        self.assertRaises(TypeError, lambda: Rectangle('1', 10))
+
+    def test_width_float(self):
+        self.assertRaises(TypeError, lambda: Rectangle(1.00, 10))
+
+    def test_width_list(self):
+        self.assertRaises(TypeError, lambda: Rectangle([1, 2], 10))
+
+    def test_width_tuple(self):
+        self.assertRaises(TypeError, lambda: Rectangle((1, 2), 10))
+
+    def test_width_complex(self):
+        self.assertRaises(TypeError, lambda: Rectangle(
+            complex(real=1.2, imag=2), 1))
+
+    def test_width_very_large_number(self):
+        self.assertRaises(TypeError, lambda:  Rectangle(float('inf'), 1))
+
+    def test_width_None_value(self):
+        self.assertRaises(TypeError, lambda: Rectangle(None, 1))
+
+    def test_width_bool(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, True, 10))
+
+    def test_id(self):
+        a = Rectangle(10, 10, 1, 1)
+        b = Rectangle(10, 10, 1, 1)
+        self.assertEqual(a.id, b.id - 1)
+
+    def test_id_less_than_zero(self):
+        self.assertEqual(-1, Rectangle(10, 10, 1, 2, -1).id)
+
+    def test_id_string(self):
+        self.assertEqual('1', Rectangle(10,  10, 1, 1,  '1').id)
+
+    def test_id_float(self):
+        self.assertEqual(1.1,  Rectangle(10, 10, 1, 1, 1.1).id)
+
+    def test_id_list(self):
+        self.assertEqual([1],  Rectangle(10, 10, 1, 1, [1]).id)
+
+    def test_id_tuple(self):
+        self.assertEqual((1,),  Rectangle(10, 10, 1, 1, (1,)).id)
+
+    def test_id_complex(self):
+        self.assertEqual(complex(real=1.2, imag=2),
+                         Rectangle(10, 10, 10, 10,
+                                   complex(real=1.2, imag=2)).id)
+
+    def test_id_very_large_number(self):
+        self.assertEqual(float('inf'),  Rectangle(
+            10, 10, 1, 1, float('inf')).id)
+
+    def test_id_None_value(self):
+        a = Rectangle(10, 10, 1, 1, None)
+        b = Rectangle(10, 10, 1, 1, None)
+        self.assertEqual(a.id + 1,  b.id)
+
+    def test_id_bool(self):
+        self.assertEqual(
+            False,  Rectangle(10, 10, 1, 1, False).id)
+
+    def test_x(self):
+        a = Rectangle(10, 10, 1, 1)
+        b = Rectangle(10, 10, 1, 1)
+        self.assertEqual(a.x, b.x)
+
+    def test_x_less_than_zero(self):
+        self.assertRaises(ValueError, lambda: Rectangle(10, 10, -1, 1))
+
+    def test_x_string(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10,  10, '1', 1))
+
+    def test_x_float(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, 10, 1.1, 1))
+
+    def test_x_list(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, 10, [1, 2], 10))
+
+    def test_x_tuple(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, 10, (1, 2), 10))
+
+    def test_x_complex(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, 10,
+                                                       complex(real=1.2, imag=2), 1))
+
+    def test_x_very_large_number(self):
+        self.assertRaises(TypeError, lambda:  Rectangle(
+            10, 10, float('inf'), 1))
+
+    def test_x_None_value(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, 10, None, 1))
+
+    def test_x_bool(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, 10, True, 10))
+
+    def test_y(self):
+        a = Rectangle(10, 10, 1, 1)
+        b = Rectangle(10, 10, 1, 1)
+        self.assertEqual(a.y, b.y)
+
+    def test_y_less_than_zero(self):
+        self.assertRaises(ValueError, lambda: Rectangle(10, 10, 1, -1))
+
+    def test_y_string(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10,  10, 1, '1'))
+
+    def test_y_float(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, 10, 1, 1.1))
+
+    def test_y_list(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, 10, 1,  [1, 2]))
+
+    def test_y_tuple(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, 10, 10,  (1, 2)))
+
+    def test_y_complex(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, 10, 10,
+                                                       complex(real=1.2, imag=2)))
+
+    def test_y_very_large_number(self):
+        self.assertRaises(TypeError, lambda:  Rectangle(
+            10, 10, 10, float('inf')))
+
+    def test_y_None_value(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, 10, 10, None))
+
+    def test_y_bool(self):
+        self.assertRaises(TypeError, lambda: Rectangle(10, 10, 10, True))
+
+
+class TestRectangleArea(unittest.TestCase):
+
+    def test_area(self):
+        self.assertEqual(10, Rectangle(2, 5).area())
+
+    def test_area_same_width_and_height(self):
+        self.assertEqual(100, Rectangle(10, 10).area())
+
+    def test_area_large_values(self):
+        a = 99999999999999999999999999999999
+        self.assertEqual(a ** 2, Rectangle(a, a).area())
+
+    def test_area_large_and_small_values(self):
+        a = 999999999999999999999999999999999
+        b = 10
+        self.assertEqual(a * b, Rectangle(a, b).area())
+
+
+class TestRectangleDisplay(unittest.TestCase):
+    @staticmethod
+    def get_stdout_val(obj, shouldPrint=False):
+        """
+        get_stdout_val temporarily sets the sys stdout to an io stream,
+        captures the value, sets the sys stdout back to the default outut
+        stream with fd of 1 and returns the value.
+
+        This works since the print function prints by default to sys.stdout.
+
+        :param obj(Base) is the object to captured
+        :param shouldPrint(bool) tell whether to call the display method
+        on the object or to just print it out
+        :return (str) the valued captured from the stdout
+        """
+        temp = sys.stdout
+        sys.stdout = io.StringIO()
+        print(obj) if shouldPrint else obj.display()
+        data = sys.stdout.getvalue()
+        sys.stdout = temp
+        return data
+
+    def test_diplay(self):
+        display = """\
+######
+######
+######
+######
+######
+######
+"""
+        self.assertEqual(
+            display, TestRectangleDisplay.get_stdout_val(Rectangle(6, 6)))
+
+    def test_diplay_with_small_values(self):
+        display = """\
+##
+##
+"""
+        self.assertEqual(
+            display, TestRectangleDisplay.get_stdout_val(Rectangle(2, 2)))
+
+    def test_diplay_with_vertical_padding(self):
+        display = """\
+
+
+
+##
+##
+"""
+        self.assertEqual(
+            display, TestRectangleDisplay.get_stdout_val(Rectangle(2, 2, y=3)))
+
+    def test_diplay_with_large_vertical_padding(self):
+        display = """\
+
+
+
+
+
+
+
+
+
+
+##
+##
+"""
+        self.assertEqual(
+            display, TestRectangleDisplay.get_stdout_val(Rectangle(2, 2, y=10)))
+
+    def test_diplay_with_zero_vertical_padding(self):
+        display = """\
+##
+##
+"""
+        self.assertEqual(
+            display, TestRectangleDisplay.get_stdout_val(Rectangle(2, 2, y=0)))
+
+    def test_diplay_with_horizontal_padding(self):
+        display = """\
+   ##
+   ##
+"""
+        self.assertEqual(
+            display, TestRectangleDisplay.get_stdout_val(Rectangle(2, 2, x=3)))
+
+    def test_diplay_with_large_horizontal_padding(self):
+        display = """\
+          ##
+          ##
+"""
+        self.assertEqual(
+            display, TestRectangleDisplay.get_stdout_val(Rectangle(2, 2, x=10)))
+
+    def test_diplay_with_zero_horizontal_padding(self):
+        display = """\
+##
+##
+"""
+        self.assertEqual(
+            display, TestRectangleDisplay.get_stdout_val(Rectangle(2, 2, x=0)))
+
+    def test_diplay_with_both_horizontal_and_vertical_padding(self):
+        display = """\
+
+
+
+
+
+          #####
+          #####
+          #####
+          #####
+          #####
+"""
+        self.assertEqual(
+            display, TestRectangleDisplay.get_stdout_val(Rectangle(5, 5, x=10, y=5)))
+
+    def test_diplay_with_both_horizontal_and_vertical_padding(self):
+        display = """\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                              ############################
+                              ############################
+                              ############################
+                              ############################
+                              ############################
+                              ############################
+                              ############################
+                              ############################
+                              ############################
+                              ############################
+                              ############################
+                              ############################
+                              ############################
+                              ############################
+                              ############################
+                              ############################
+"""
+        self.assertEqual(
+            display, TestRectangleDisplay.get_stdout_val(
+                Rectangle(28, 16, x=30, y=15)))

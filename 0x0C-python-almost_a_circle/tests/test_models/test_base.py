@@ -4,7 +4,7 @@ import unittest
 from models.base import Base
 
 
-class TestBase_init(unittest.TestCase):
+class TestBaseInitilization(unittest.TestCase):
     """Unittest class for models/base.py"""
 
     def test_main(self):

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Defines a Base class"""
 import json
+import turtle
 
 
 class Base:
@@ -104,7 +105,7 @@ class Base:
         """
         save_to_file serializes the list_objs to a CSV file
 
-        :param list_objs(list[Base]): a list of object to be serialized 
+        :param list_objs(list[Base]): a list of object to be serialized
         to a CSV file
         """
         if cls == Base:
@@ -133,7 +134,8 @@ class Base:
     @classmethod
     def load_from_file_csv(cls):
         """
-        load_from_file_csv deserializes the CSV file of the class an returns a list
+        load_from_file_csv deserializes the CSV file of the class an returns
+        a list
         of instances
 
         :return (list[Base]):
@@ -154,3 +156,32 @@ class Base:
                 return objs
         except FileExistsError:
             return []
+
+    @staticmethod
+    def draw(list_rectangles, list_squares):
+        """
+        draw opens a window and draws the Rectngles and Squares
+
+        :param list_rectangles(list[Rectangle]) is a list of Rectangle objects
+        :param list_squares(list[Square]) is a list of Square objects
+        """
+        def draw_shape(shape):
+            """
+            draw_shape takes in a single shape object and draws it unto the
+            screen
+
+            :param shape(Base): is the object to be drawn to the screen
+            """
+            for i in range(4):
+                if i % 2 == 0:
+                    turtle.forward(shape.width)
+                else:
+                    turtle.forward(shape.height)
+                turtle.left(90)
+            turtle.forward(shape.width + 10)
+        turtle.back(400)
+        for shape in list_rectangles:
+            draw_shape(shape)
+        for shape in list_squares:
+            draw_shape(shape)
+        turtle.exitonclick()
