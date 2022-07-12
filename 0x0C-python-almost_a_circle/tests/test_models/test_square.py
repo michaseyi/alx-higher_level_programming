@@ -442,5 +442,34 @@ class TestCreateSquareObject(unittest.TestCase):
         self.assertEqual(str(e.exception), 'y must be an integer')
 
 
+class TestLoadFromFile(unittest.TestCase):
+
+    def test_load_single_object(self):
+        Square.save_to_file([Square(10, id=10)])
+        objs = Square.load_from_file()
+        self.assertEqual(len(objs), 1)
+        self.assertEqual(objs[0].id, 10)
+
+    def test_load_multiple_objects(self):
+        a = Square(10, id=10)
+        b = Square(10, id=11)
+        c = Square(10,  id=12)
+        Square.save_to_file([a, b, c])
+        objs = Square.load_from_file()
+        self.assertEqual(len(objs), 3)
+        self.assertTrue(objs[0].id == 10 and objs[1].id == 11 and
+                        objs[2].id == 12)
+
+    def test_load_empty_list(self):
+        Square.save_to_file([])
+        objs = Square.load_from_file()
+        self.assertEqual(0, len(objs))
+
+    def test_load_none(self):
+        Square.save_to_file(None)
+        objs = Square.load_from_file()
+        self.assertEqual(0, len(objs))
+
+
 if __name__ == "__main__":
     unittest.main()
