@@ -380,5 +380,67 @@ class TestSquareToDictionary(unittest.TestCase):
         self.assertTrue(a_dict == exp_dict)
 
 
+class TestSaveSquareToFile(unittest.TestCase):
+    def test_no_param(self):
+        with self.assertRaises(TypeError) as e:
+            Square.save_to_file()
+        self.assertEqual(str(e.exception), "save_to_file() missing 1 \
+required positional argument: 'list_objs'")
+
+    def test_empty_list(self):
+        Square.save_to_file([])
+        with open("Square.json") as file:
+            self.assertEqual(file.read(), "[]")
+
+    def test_one_rectangle_object(self):
+        Square.save_to_file([Square(10, id=10)])
+        with open("Square.json") as file:
+            self.assertEqual(file.read(), '[{"id": 10, "x": 0, "size": \
+10, "y": 0}]')
+
+    def test_multiple_rectangle_object(self):
+        Square.save_to_file([Square(10, id=10),
+                             Square(11, id=11)])
+        with open("Square.json") as file:
+            self.assertEqual(file.read(), '[{"id": 10, "x": 0, "size": \
+10, "y": 0}, {"id": 11, "x": 0, "size": 11, "y": 0}]')
+
+
+class TestCreateSquareObject(unittest.TestCase):
+
+    def test_no_param(self):
+        self.assertEqual(type(Square.create()), Square)
+        self.assertEqual(Square.create().size, 1)
+
+    def test_width(self):
+        self.assertEqual(Square.create(size=10).size, 10)
+
+    def test_id(self):
+        self.assertEqual(Square.create(id=10).id, 10)
+
+    def test_x(self):
+        self.assertEqual(Square.create(x=10).x, 10)
+
+    def test_y(self):
+        self.assertEqual(Square.create(y=10).y, 10)
+
+    def test_all_param(self):
+        a = Square.create(size=10, id=10, x=10,
+                          y=10)
+        self.assertTrue(a.id == a.size == a.x ==
+                        a.y == 10)
+
+    def test_wrong_type_param(self):
+        with self.assertRaises(TypeError) as e:
+            Square.create(size='10')
+        self.assertEqual(str(e.exception), 'width must be an integer')
+        with self.assertRaises(TypeError) as e:
+            Square.create(x='10')
+        self.assertEqual(str(e.exception), 'x must be an integer')
+        with self.assertRaises(TypeError) as e:
+            Square.create(y='10')
+        self.assertEqual(str(e.exception), 'y must be an integer')
+
+
 if __name__ == "__main__":
     unittest.main()

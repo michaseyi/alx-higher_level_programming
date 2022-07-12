@@ -691,6 +691,5 @@ class TestLoadFromFile(unittest.TestCase):
         objs = Rectangle.load_from_file()
         self.assertEqual(0, len(objs))
 
-
 if __name__ == "__main__":
     unittest.main()
