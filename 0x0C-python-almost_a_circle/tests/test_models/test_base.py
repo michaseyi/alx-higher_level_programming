@@ -87,3 +87,7 @@ class TestBaseInitilization(unittest.TestCase):
 
     def test_list_type_as_param(self):
         self.assertEqual(list, Base(list).id)
+
+
+if __name__ == "__main__":
+    unittest.main()

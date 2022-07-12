@@ -580,3 +580,7 @@ class TestRectangleToDictionary(unittest.TestCase):
         exp_dict = {"id": 72, "width": 10, "height": 10,
                     "x": 20, "y": 20}
         self.assertTrue(a_dict == exp_dict)
+
+
+if __name__ == "__main__":
+    unittest.main()
