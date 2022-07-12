@@ -621,5 +621,76 @@ required positional argument: 'list_objs'")
 "width": 11}]')
 
 
+class TestCreateRectangleObject(unittest.TestCase):
+
+    def test_no_param(self):
+        self.assertEqual(type(Rectangle.create()), Rectangle)
+        self.assertEqual(Rectangle.create().width, 1)
+
+    def test_width(self):
+        self.assertEqual(Rectangle.create(width=10).width, 10)
+
+    def test_height(self):
+        self.assertEqual(Rectangle.create(height=10).height, 10)
+
+    def test_id(self):
+        self.assertEqual(Rectangle.create(id=10).id, 10)
+
+    def test_x(self):
+        self.assertEqual(Rectangle.create(x=10).x, 10)
+
+    def test_y(self):
+        self.assertEqual(Rectangle.create(y=10).y, 10)
+
+    def test_all_param(self):
+        a = Rectangle.create(width=10, height=10, id=10, x=10,
+                             y=10)
+        self.assertTrue(a.id == a.width == a.height == a.x ==
+                        a.y == 10)
+
+    def test_wrong_type_param(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle.create(width='10')
+        self.assertEqual(str(e.exception), 'width must be an integer')
+        with self.assertRaises(TypeError) as e:
+            Rectangle.create(height='10')
+        self.assertEqual(str(e.exception), 'height must be an integer')
+        with self.assertRaises(TypeError) as e:
+            Rectangle.create(x='10')
+        self.assertEqual(str(e.exception), 'x must be an integer')
+        with self.assertRaises(TypeError) as e:
+            Rectangle.create(y='10')
+        self.assertEqual(str(e.exception), 'y must be an integer')
+
+
+class TestLoadFromFile(unittest.TestCase):
+
+    def test_load_single_object(self):
+        Rectangle.save_to_file([Rectangle(10, 10, id=10)])
+        objs = Rectangle.load_from_file()
+        self.assertEqual(len(objs), 1)
+        self.assertEqual(objs[0].id, 10)
+
+    def test_load_multiple_objects(self):
+        a = Rectangle(10, 11, id=10)
+        b = Rectangle(10, 11, id=11)
+        c = Rectangle(10, 11, id=12)
+        Rectangle.save_to_file([a, b, c])
+        objs = Rectangle.load_from_file()
+        self.assertEqual(len(objs), 3)
+        self.assertTrue(objs[0].id == 10 and objs[1].id == 11 and
+                        objs[2].id == 12)
+
+    def test_load_empty_list(self):
+        Rectangle.save_to_file([])
+        objs = Rectangle.load_from_file()
+        self.assertEqual(0, len(objs))
+
+    def test_load_none(self):
+        Rectangle.save_to_file(None)
+        objs = Rectangle.load_from_file()
+        self.assertEqual(0, len(objs))
+
+
 if __name__ == "__main__":
     unittest.main()
