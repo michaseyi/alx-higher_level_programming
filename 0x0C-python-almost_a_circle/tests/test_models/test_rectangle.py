@@ -3,6 +3,8 @@
 
 import io
 import sys
+
+from unittest.mock import patch
 from models.rectangle import Rectangle
 import unittest
 
@@ -15,10 +17,14 @@ class TestRectangleInitilization(unittest.TestCase):
         self.assertEqual(a.height, b.height)
 
     def test_height_less_than_or_equals_to_zero(self):
-        self.assertRaises(ValueError, lambda: Rectangle(10, 0))
+        with self.assertRaises(ValueError) as e:
+            Rectangle(10, 0)
+        self.assertEqual(e.exception.args[0], 'height must be > 0')
 
     def test_height_string(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, '1'))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, '1')
+        self.assertEqual(e.exception.args[0], 'height must be an integer')
 
     def test_height_float(self):
         self.assertRaises(TypeError, lambda: Rectangle(10, 1.00))
@@ -134,8 +140,9 @@ class TestRectangleInitilization(unittest.TestCase):
         self.assertRaises(TypeError, lambda: Rectangle(10, 10, (1, 2), 10))
 
     def test_x_complex(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, 10,
-                                                       complex(real=1.2, imag=2), 1))
+        self.assertRaises(TypeError,
+                          lambda: Rectangle(10, 10,
+                                            complex(real=1.2, imag=2), 1))
 
     def test_x_very_large_number(self):
         self.assertRaises(TypeError, lambda:  Rectangle(
@@ -168,8 +175,9 @@ class TestRectangleInitilization(unittest.TestCase):
         self.assertRaises(TypeError, lambda: Rectangle(10, 10, 10,  (1, 2)))
 
     def test_y_complex(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, 10, 10,
-                                                       complex(real=1.2, imag=2)))
+        self.assertRaises(TypeError,
+                          lambda: Rectangle(10, 10, 10,
+                                            complex(real=1.2, imag=2)))
 
     def test_y_very_large_number(self):
         self.assertRaises(TypeError, lambda:  Rectangle(
@@ -232,7 +240,8 @@ class TestRectangleDisplay(unittest.TestCase):
 ######
 """
         self.assertEqual(
-            display, TestRectangleDisplay.get_stdout_val(Rectangle(6, 6)))
+            display, TestRectangleDisplay.
+            get_stdout_val(Rectangle(6, 6)))
 
     def test_diplay_with_small_values(self):
         display = """\
@@ -240,7 +249,8 @@ class TestRectangleDisplay(unittest.TestCase):
 ##
 """
         self.assertEqual(
-            display, TestRectangleDisplay.get_stdout_val(Rectangle(2, 2)))
+            display, TestRectangleDisplay.
+            get_stdout_val(Rectangle(2, 2)))
 
     def test_diplay_with_vertical_padding(self):
         display = """\
@@ -251,7 +261,8 @@ class TestRectangleDisplay(unittest.TestCase):
 ##
 """
         self.assertEqual(
-            display, TestRectangleDisplay.get_stdout_val(Rectangle(2, 2, y=3)))
+            display, TestRectangleDisplay.
+            get_stdout_val(Rectangle(2, 2, y=3)))
 
     def test_diplay_with_large_vertical_padding(self):
         display = """\
@@ -269,7 +280,8 @@ class TestRectangleDisplay(unittest.TestCase):
 ##
 """
         self.assertEqual(
-            display, TestRectangleDisplay.get_stdout_val(Rectangle(2, 2, y=10)))
+            display, TestRectangleDisplay.
+            get_stdout_val(Rectangle(2, 2, y=10)))
 
     def test_diplay_with_zero_vertical_padding(self):
         display = """\
@@ -277,7 +289,8 @@ class TestRectangleDisplay(unittest.TestCase):
 ##
 """
         self.assertEqual(
-            display, TestRectangleDisplay.get_stdout_val(Rectangle(2, 2, y=0)))
+            display, TestRectangleDisplay.
+            get_stdout_val(Rectangle(2, 2, y=0)))
 
     def test_diplay_with_horizontal_padding(self):
         display = """\
@@ -285,7 +298,8 @@ class TestRectangleDisplay(unittest.TestCase):
    ##
 """
         self.assertEqual(
-            display, TestRectangleDisplay.get_stdout_val(Rectangle(2, 2, x=3)))
+            display, TestRectangleDisplay.
+            get_stdout_val(Rectangle(2, 2, x=3)))
 
     def test_diplay_with_large_horizontal_padding(self):
         display = """\
@@ -293,15 +307,17 @@ class TestRectangleDisplay(unittest.TestCase):
           ##
 """
         self.assertEqual(
-            display, TestRectangleDisplay.get_stdout_val(Rectangle(2, 2, x=10)))
+            display, TestRectangleDisplay.
+            get_stdout_val(Rectangle(2, 2, x=10)))
 
+    @patch('sys.stdout', io.StringIO())
     def test_diplay_with_zero_horizontal_padding(self):
         display = """\
 ##
 ##
 """
-        self.assertEqual(
-            display, TestRectangleDisplay.get_stdout_val(Rectangle(2, 2, x=0)))
+        Rectangle(2, 2, x=0).display()
+        self.assertEqual(display, sys.stdout.getvalue())
 
     def test_diplay_with_both_horizontal_and_vertical_padding(self):
         display = """\
@@ -317,7 +333,8 @@ class TestRectangleDisplay(unittest.TestCase):
           #####
 """
         self.assertEqual(
-            display, TestRectangleDisplay.get_stdout_val(Rectangle(5, 5, x=10, y=5)))
+            display, TestRectangleDisplay.
+            get_stdout_val(Rectangle(5, 5, x=10, y=5)))
 
     def test_diplay_with_both_horizontal_and_vertical_padding(self):
         display = """\
@@ -356,3 +373,149 @@ class TestRectangleDisplay(unittest.TestCase):
         self.assertEqual(
             display, TestRectangleDisplay.get_stdout_val(
                 Rectangle(28, 16, x=30, y=15)))
+
+
+class TestRectangleStrRepresentation(unittest.TestCase):
+
+    @patch('sys.stdout', io.StringIO())
+    def test_str_rep(self):
+        print(Rectangle(10, 20, 5, 10, 100), end="")
+        str_rep = "[Rectangle] (100) 5/10 - 10/20"
+        self.assertEqual(str_rep, sys.stdout.getvalue())
+
+    @patch('sys.stdout', io.StringIO())
+    def test_str_rep_with_x_as_zero(self):
+        print(Rectangle(10, 20, 0, 10, 100), end="")
+        str_rep = "[Rectangle] (100) 0/10 - 10/20"
+        self.assertEqual(str_rep, sys.stdout.getvalue())
+
+    @patch('sys.stdout', io.StringIO())
+    def test_str_rep_with_y_as_zero(self):
+        print(Rectangle(10, 20, 5, 0, 100), end="")
+        str_rep = "[Rectangle] (100) 5/0 - 10/20"
+        self.assertEqual(str_rep, sys.stdout.getvalue())
+
+    @patch('sys.stdout', io.StringIO())
+    def test_str_rep_with_only_width_and_height(self):
+        print(Rectangle(10, 20), end="")
+        str_rep = "[Rectangle] ({}) 0/0 - 10/20"\
+            .format(Rectangle(100, 100).id - 1)
+        self.assertEqual(str_rep, sys.stdout.getvalue())
+
+
+class TestRectangleUpdate(unittest.TestCase):
+
+    def test_update_args_id(self):
+        a = Rectangle(10, 10)
+        a.update(11)
+        self.assertEqual(a.id, 11)
+
+    def test_update_args_width(self):
+        a = Rectangle(10, 10)
+        a.update(10, 20)
+        self.assertEqual(a.width, 20)
+
+    def test_update_args_height(self):
+        a = Rectangle(10, 10)
+        a.update(10, 10, 20)
+        self.assertEqual(a.height, 20)
+
+    def test_update_args_x(self):
+        a = Rectangle(10, 10)
+        a.update(10, 10, 10, 20)
+        self.assertEqual(a.x, 20)
+
+    def test_update_args_y(self):
+        a = Rectangle(10, 10)
+        a.update(10, 10, 10, 10, 20)
+        self.assertEqual(a.y, 20)
+
+    def test_update_kwargs_id(self):
+        a = Rectangle(10, 10)
+        a.update(id=20)
+        self.assertEqual(a.id, 20)
+
+    def test_update_kwargs_width(self):
+        a = Rectangle(10, 10)
+        a.update(width=20)
+        self.assertEqual(a.width, 20)
+
+    def test_update_kwargs_height(self):
+        a = Rectangle(10, 10)
+        a.update(height=20)
+        self.assertEqual(a.height, 20)
+
+    def test_update_kwargs_x(self):
+        a = Rectangle(10, 10)
+        a.update(x=20)
+        self.assertEqual(a.x, 20)
+
+    def test_update_kwargs_y(self):
+        a = Rectangle(10, 10)
+        a.update(y=20)
+        self.assertEqual(a.y, 20)
+
+    def test_update_precedence_id(self):
+        a = Rectangle(10, 10)
+        a.update(14, id=15)
+        self.assertEqual(a.id, 14)
+
+    def test_update_precedence_id_width(self):
+        a = Rectangle(10, 10)
+        a.update(14, 29, id=15, width=20)
+        self.assertEqual(a.id, 14)
+        self.assertEqual(a.width, 29)
+
+    def test_update_precedence_id_width_height(self):
+        a = Rectangle(10, 10)
+        a.update(14, 29, 30, id=15, width=20, height=39)
+        self.assertEqual(a.id, 14)
+        self.assertEqual(a.width, 29)
+        self.assertEqual(a.height, 30)
+
+    def test_update_precedence_id_width_height_x(self):
+        a = Rectangle(10, 10)
+        a.update(11, 11, 11, 8, x=16)
+        self.assertTrue(a.x == 8)
+
+    def test_update_precedence_y(self):
+        a = Rectangle(10, 10)
+        a.update(11, 11, 11, 8, 39, x=16, y=23)
+        self.assertTrue(a.x == 8 and a.y == 39)
+
+    def test_update_no_params(self):
+        a = Rectangle(10, 10)
+        a.update()
+        self.assertTrue(a.width == a.height == 10)
+
+    def test_update_all_args(self):
+        a = Rectangle(10, 10)
+        a.update(11, 11, 11, 11, 11)
+        self.assertTrue(a.id == a.width == a.height == a.x == a.y)
+
+    def test_update_all_kwargs(self):
+        a = Rectangle(10, 10)
+        a.update(id=11, width=11, height=11, x=11, y=11)
+        self.assertTrue(a.id == a.width == a.height == a.x == a.y)
+
+    def test_update_all_args_and_kwargs(self):
+        a = Rectangle(10, 10)
+        a.update(12, 12, 12, 12, 12, id=11, width=11, height=11, x=11, y=11)
+        self.assertTrue(a.id == a.width == a.height == a.x == a.y == 12)
+
+
+class TestRectangleToDictionary(unittest.TestCase):
+
+    def test_dict(self):
+        a = Rectangle(10, 10)
+        a_dict = a.to_dictionary()
+        exp_dict = {"id": a.id, "width": 10, "height": 10,
+                    "x": 0, "y": 0}
+        self.assertTrue(a_dict == exp_dict)
+
+    def test_dict_with_all_values_set(self):
+        a = Rectangle(10, 10, 20, 20, 72)
+        a_dict = a.to_dictionary()
+        exp_dict = {"id": 72, "width": 10, "height": 10,
+                    "x": 20, "y": 20}
+        self.assertTrue(a_dict == exp_dict)

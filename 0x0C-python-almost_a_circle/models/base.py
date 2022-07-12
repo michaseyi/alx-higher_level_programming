@@ -150,6 +150,8 @@ class Base:
                     if head is None:
                         head = line.split(',')
                         continue
+                    if len(line.split(',')) != len(head):
+                        continue
                     obj = {k: int(v) for k, v in zip(head, line.split(','))}
                     objs.append(obj)
                 objs = list(map(lambda obj: cls.create(**obj), objs))
@@ -172,14 +174,17 @@ class Base:
 
             :param shape(Base): is the object to be drawn to the screen
             """
+            turtle.hideturtle()
+            turtle.goto((shape.x, shape.y))
+            turtle.clear()
+            turtle.showturtle()
             for i in range(4):
                 if i % 2 == 0:
                     turtle.forward(shape.width)
                 else:
                     turtle.forward(shape.height)
                 turtle.left(90)
-            turtle.forward(shape.width + 10)
-        turtle.back(400)
+            turtle.clearscreen()
         for shape in list_rectangles:
             draw_shape(shape)
         for shape in list_squares:

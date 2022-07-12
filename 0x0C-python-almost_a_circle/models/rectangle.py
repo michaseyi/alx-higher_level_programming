@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """Defines a Rectangle class"""
-import sys
-sys.path.append('models')
-from base import Base
+
+from models.base import Base
 
 
 class Rectangle(Base):
@@ -159,4 +158,3 @@ class Rectangle(Base):
         ret['height'] = self.height
         ret['width'] = self.width
         return ret
-
