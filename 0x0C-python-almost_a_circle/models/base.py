@@ -174,10 +174,8 @@ class Base:
 
             :param shape(Base): is the object to be drawn to the screen
             """
-            turtle.hideturtle()
             turtle.goto((shape.x, shape.y))
             turtle.clear()
-            turtle.showturtle()
             for i in range(4):
                 if i % 2 == 0:
                     turtle.forward(shape.width)
