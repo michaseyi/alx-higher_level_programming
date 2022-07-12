@@ -99,8 +99,17 @@ class TestToJsonString(unittest.TestCase):
         self.assertEqual(str(e.exception), "to_json_string() missing 1 \
 required positional argument: 'list_dictionaries'")
 
+    def test_no_param(self):
+        with self.assertRaises(TypeError) as e:
+            Base.to_json_string()
+        self.assertEqual(str(e.exception), "to_json_string() missing 1 \
+required positional argument: 'list_dictionaries'")
+
     def test_none_param(self):
         self.assertEqual(Base.to_json_string(None), "[]")
+
+    def test_empty_list(self):
+        self.assertEqual(Base.to_json_string([]), "[]")
 
     def test_rectangle_object_dict(self):
         a = Rectangle(10, 10, id=10).to_dictionary()
@@ -118,6 +127,33 @@ required positional argument: 'list_dictionaries'")
         self.assertEqual(Base.to_json_string([a, b]), '[{"id": 11,\
  "x": 0, "size": 10, "y": 0}, {"x": 0, "y": 0,\
  "id": 12, "height": 10, "width": 10}]')
+
+
+class TestFromJsonString(unittest.TestCase):
+
+    def test_no_param(self):
+        with self.assertRaises(TypeError) as e:
+            Base.from_json_string()
+        self.assertEqual(str(e.exception), "from_json_string() missing 1 \
+required positional argument: 'json_string'")
+
+    def test_json_string_for_rectangle(self):
+        a = '[{"x": 0, "y": 0, "id": 10, "height": 10, "width": 10}]'
+        exp_list = [{"x": 0, "y": 0, "id": 10, "height": 10, "width": 10}]
+        self.assertEqual(Base.from_json_string(a), exp_list)
+
+    def test_json_string_for_square(self):
+        a = '[{"x": 0, "y": 0, "id": 10, "size": 10}]'
+        exp_list = [{"x": 0, "y": 0, "id": 10, "size": 10}]
+        self.assertEqual(Base.from_json_string(a), exp_list)
+
+    def test_json_string_for_square_and_rectangle(self):
+        a = '[{"x": 0, "y": 0, "id": 10, "height": 10, "width": 10}, \
+{"x": 0, "y": 0, "id": 10, "size": 10}]'
+        exp_list = [{"x": 0, "y": 0, "id": 10, "height": 10,
+                     "width": 10}, {"x": 0, "y": 0, "id": 10, "size": 10}]
+        self.assertEqual(Base.from_json_string(a), exp_list)
+
 
 if __name__ == "__main__":
     unittest.main()
