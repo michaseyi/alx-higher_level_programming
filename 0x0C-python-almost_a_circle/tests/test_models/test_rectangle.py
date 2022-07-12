@@ -594,5 +594,32 @@ class TestRectangleToDictionary(unittest.TestCase):
         self.assertTrue(a_dict == exp_dict)
 
 
+class TestSaveRectangleToFile(unittest.TestCase):
+    def test_no_param(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle.save_to_file()
+        self.assertEqual(str(e.exception), "save_to_file() missing 1 \
+required positional argument: 'list_objs'")
+
+    def test_empty_list(self):
+        Rectangle.save_to_file([])
+        with open("Rectangle.json") as file:
+            self.assertEqual(file.read(), "[]")
+
+    def test_one_rectangle_object(self):
+        Rectangle.save_to_file([Rectangle(10, 10, id=10)])
+        with open("Rectangle.json") as file:
+            self.assertEqual(file.read(), '[{"x": 0, "y": 0, "id": 10, \
+"height": 10, "width": 10}]')
+
+    def test_multiple_rectangle_object(self):
+        Rectangle.save_to_file([Rectangle(10, 10, id=10),
+                               Rectangle(11, 11, id=11)])
+        with open("Rectangle.json") as file:
+            self.assertEqual(file.read(), '[{"x": 0, "y": 0, "id": 10, \
+"height": 10, "width": 10}, {"x": 0, "y": 0, "id": 11, "height": 11, \
+"width": 11}]')
+
+
 if __name__ == "__main__":
     unittest.main()
