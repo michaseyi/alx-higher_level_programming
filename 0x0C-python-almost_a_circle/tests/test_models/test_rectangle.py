@@ -27,26 +27,39 @@ class TestRectangleInitilization(unittest.TestCase):
         self.assertEqual(e.exception.args[0], 'height must be an integer')
 
     def test_height_float(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, 1.00))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 1.2)
+        self.assertEqual(e.exception.args[0], 'height must be an integer')
 
     def test_height_list(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, [1, 2]))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, [1])
+        self.assertEqual(e.exception.args[0], 'height must be an integer')
 
     def test_height_tuple(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, (1, 2)))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, (1,))
+        self.assertEqual(e.exception.args[0], 'height must be an integer')
 
     def test_height_complex(self):
-        self.assertRaises(TypeError, lambda: Rectangle(
-            1, complex(real=1.2, imag=2)))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, complex(real=1.2, imag=3))
+        self.assertEqual(e.exception.args[0], 'height must be an integer')
 
     def test_height_very_large_number(self):
-        self.assertRaises(TypeError, lambda:  Rectangle(1, float('inf')))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, float('inf'))
+        self.assertEqual(e.exception.args[0], 'height must be an integer')
 
     def test_height_None_value(self):
-        self.assertRaises(TypeError, lambda: Rectangle(1, None))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, None)
+        self.assertEqual(e.exception.args[0], 'height must be an integer')
 
     def test_height_bool(self):
-        self.assertRaises(TypeError, lambda: Rectangle(False, 10, 10))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, True)
+        self.assertEqual(e.exception.args[0], 'height must be an integer')
 
     def test_width(self):
         a = Rectangle(10, 10, 1, 1)
@@ -54,32 +67,49 @@ class TestRectangleInitilization(unittest.TestCase):
         self.assertEqual(a.width, b.width)
 
     def test_width_less_than_or_equals_to_zero(self):
-        self.assertRaises(ValueError, lambda: Rectangle(0, 10))
+        with self.assertRaises(ValueError) as e:
+            Rectangle(0, 10)
+        self.assertEqual(e.exception.args[0], 'width must be > 0')
 
     def test_width_string(self):
-        self.assertRaises(TypeError, lambda: Rectangle('1', 10))
+        with self.assertRaises(TypeError) as e:
+            Rectangle('1', 10)
+        self.assertEqual(e.exception.args[0], 'width must be an integer')
 
     def test_width_float(self):
-        self.assertRaises(TypeError, lambda: Rectangle(1.00, 10))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(1.3, 10)
+        self.assertEqual(e.exception.args[0], 'width must be an integer')
 
     def test_width_list(self):
-        self.assertRaises(TypeError, lambda: Rectangle([1, 2], 10))
+        with self.assertRaises(TypeError) as e:
+            Rectangle([1], 10)
+        self.assertEqual(e.exception.args[0], 'width must be an integer')
 
     def test_width_tuple(self):
-        self.assertRaises(TypeError, lambda: Rectangle((1, 2), 10))
+        with self.assertRaises(TypeError) as e:
+            Rectangle((1,), 10)
+        self.assertEqual(e.exception.args[0], 'width must be an integer')
 
     def test_width_complex(self):
-        self.assertRaises(TypeError, lambda: Rectangle(
-            complex(real=1.2, imag=2), 1))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(complex(real=1.2, imag=3.3), 10)
+        self.assertEqual(e.exception.args[0], 'width must be an integer')
 
     def test_width_very_large_number(self):
-        self.assertRaises(TypeError, lambda:  Rectangle(float('inf'), 1))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(float('inf'), 10)
+        self.assertEqual(e.exception.args[0], 'width must be an integer')
 
     def test_width_None_value(self):
-        self.assertRaises(TypeError, lambda: Rectangle(None, 1))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(None, 10)
+        self.assertEqual(e.exception.args[0], 'width must be an integer')
 
     def test_width_bool(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, True, 10))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(True, 10)
+        self.assertEqual(e.exception.args[0], 'width must be an integer')
 
     def test_id(self):
         a = Rectangle(10, 10, 1, 1)
@@ -125,34 +155,49 @@ class TestRectangleInitilization(unittest.TestCase):
         self.assertEqual(a.x, b.x)
 
     def test_x_less_than_zero(self):
-        self.assertRaises(ValueError, lambda: Rectangle(10, 10, -1, 1))
+        with self.assertRaises(ValueError) as e:
+            Rectangle(10, 10, -1, 1)
+        self.assertEqual(e.exception.args[0], 'x must be >= 0')
 
     def test_x_string(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10,  10, '1', 1))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, '1', 1)
+        self.assertEqual(e.exception.args[0], 'x must be an integer')
 
     def test_x_float(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, 10, 1.1, 1))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, 1.1, 1)
+        self.assertEqual(e.exception.args[0], 'x must be an integer')
 
     def test_x_list(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, 10, [1, 2], 10))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, [1], 10)
+        self.assertEqual(e.exception.args[0], 'x must be an integer')
 
     def test_x_tuple(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, 10, (1, 2), 10))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, (1, ), 10)
+        self.assertEqual(e.exception.args[0], 'x must be an integer')
 
     def test_x_complex(self):
-        self.assertRaises(TypeError,
-                          lambda: Rectangle(10, 10,
-                                            complex(real=1.2, imag=2), 1))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, complex(real=1.1, imag=1.3), 10)
+        self.assertEqual(e.exception.args[0], 'x must be an integer')
 
     def test_x_very_large_number(self):
-        self.assertRaises(TypeError, lambda:  Rectangle(
-            10, 10, float('inf'), 1))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, float('inf'), 10)
+        self.assertEqual(e.exception.args[0], 'x must be an integer')
 
     def test_x_None_value(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, 10, None, 1))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, None, 10)
+        self.assertEqual(e.exception.args[0], 'x must be an integer')
 
     def test_x_bool(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, 10, True, 10))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, True, 10)
+        self.assertEqual(e.exception.args[0], 'x must be an integer')
 
     def test_y(self):
         a = Rectangle(10, 10, 1, 1)
@@ -160,34 +205,50 @@ class TestRectangleInitilization(unittest.TestCase):
         self.assertEqual(a.y, b.y)
 
     def test_y_less_than_zero(self):
-        self.assertRaises(ValueError, lambda: Rectangle(10, 10, 1, -1))
+        with self.assertRaises(ValueError) as e:
+            Rectangle(10, 10, 10, -1)
+        self.assertEqual(e.exception.args[0], 'y must be >= 0')
 
     def test_y_string(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10,  10, 1, '1'))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, 10, '1')
+        self.assertEqual(e.exception.args[0], 'y must be an integer')
 
     def test_y_float(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, 10, 1, 1.1))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, 10, 1.3)
+        self.assertEqual(e.exception.args[0], 'y must be an integer')
 
     def test_y_list(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, 10, 1,  [1, 2]))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, 10, [1])
+        self.assertEqual(e.exception.args[0], 'y must be an integer')
 
     def test_y_tuple(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, 10, 10,  (1, 2)))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, 10, (1, ))
+        self.assertEqual(e.exception.args[0], 'y must be an integer')
 
     def test_y_complex(self):
-        self.assertRaises(TypeError,
-                          lambda: Rectangle(10, 10, 10,
-                                            complex(real=1.2, imag=2)))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, 10, complex(real=1.3, imag=33))
+        self.assertEqual(e.exception.args[0], 'y must be an integer')
 
     def test_y_very_large_number(self):
-        self.assertRaises(TypeError, lambda:  Rectangle(
-            10, 10, 10, float('inf')))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, 10, float('inf'))
+        self.assertEqual(e.exception.args[0], 'y must be an integer')
 
     def test_y_None_value(self):
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, 10, None)
+        self.assertEqual(e.exception.args[0], 'y must be an integer')
         self.assertRaises(TypeError, lambda: Rectangle(10, 10, 10, None))
 
     def test_y_bool(self):
-        self.assertRaises(TypeError, lambda: Rectangle(10, 10, 10, True))
+        with self.assertRaises(TypeError) as e:
+            Rectangle(10, 10, 10, True)
+        self.assertEqual(e.exception.args[0], 'y must be an integer')
 
 
 class TestRectangleArea(unittest.TestCase):
