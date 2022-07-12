@@ -93,7 +93,7 @@ class Base:
             with open("{}.json".format(cls.__name__),
                       encoding="utf-8") as file:
                 objs = file.read()
-        except FileExistsError:
+        except IOError:
             return []
 
         objs = Base.from_json_string(objs)
