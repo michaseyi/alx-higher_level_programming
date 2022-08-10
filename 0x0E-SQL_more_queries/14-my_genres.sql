@@ -1,6 +1,6 @@
 -- lists all genres of the show "Dexter"
 
-SELECT g.name as name
+SELECT g.name AS name
    FROM tv_shows t
    JOIN tv_show_genres tg
    ON t.id = tg.show_id
