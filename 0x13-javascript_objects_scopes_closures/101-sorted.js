@@ -9,3 +9,5 @@ Object.keys(dict).forEach((key) => {
   }
   newDict[dict[key]].push(key);
 });
+
+console.log(newDict);
