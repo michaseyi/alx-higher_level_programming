@@ -1,0 +1,5 @@
+#!/usr/bin/node
+const fs = require("fs")
+const filename = process.argv[2]
+const file = fs.createWriteStream(filename, { mode: 0o777 })
+file.write("#!/usr/bin/node")
