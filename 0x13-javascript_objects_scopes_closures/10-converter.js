@@ -8,7 +8,7 @@ exports.converter = function (base) {
       if (number === 0) return convertedNumber;
 
       if (number % base < 10) {
-        return convertNumber(Math.floor(number / base), String(number % base) + convertedNumber, alphabets);
+        return convertNumber(Math.floor(number / base), (number % base) + convertedNumber, alphabets);
       }
       return convertNumber(Math.floor(number / base), alphabets[(number % base) - 10] + convertedNumber, alphabets);
     }
