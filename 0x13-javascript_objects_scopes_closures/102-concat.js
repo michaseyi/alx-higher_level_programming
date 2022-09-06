@@ -5,4 +5,6 @@ const dest = fs.createWriteStream(process.argv[4]);
 
 sources.forEach((source) => {
   source.pipe(dest);
+  source.close();
 });
+dest.close();
