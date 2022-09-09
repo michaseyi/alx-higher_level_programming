@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-"""This module contains the class definition of a State and
-an instance of Base = declarative_base()"""
+"""This module contains changes the name of a State
+object from the database hbtn_0e_6_usa"""
 from re import U
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -14,8 +14,7 @@ if __name__ == "__main__":
     engine = create_engine(url)
     Session = sessionmaker(engine)
     session = Session()
-
-    new_state = State(name='Louisiana')
-    session.add(new_state)
+    state = session.query(State).where(State.id == 2).one_or_none()
+    if state is not None:
+        state.name = 'New Mexico'
     session.commit()
-    print(new_state.id)
