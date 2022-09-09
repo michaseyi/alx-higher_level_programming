@@ -17,8 +17,7 @@ if __name__ == "__main__":
     cur = db.cursor()
 
     cur.execute(
-        """SELECT * FROM states WHERE \
-name COLLATE Latin1_General_BIN LIKE 'N%' """)
+        """SELECT * FROM states WHERE name  LIKE BINARY 'N%' """)
 
     for row in cur.fetchall():
         print(row)
