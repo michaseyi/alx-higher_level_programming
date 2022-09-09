@@ -1,7 +1,10 @@
 #!/usr/bin/python3
+"""This modules connects the a mysql database using the
+login details proivided in the commandline and fetches
+rows in the states table"""
+import sys
+import MySQLdb
 if __name__ == "__main__":
-    import sys
-    import MySQLdb
 
     host = "localhost"
     port = 3306
