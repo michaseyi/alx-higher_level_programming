@@ -17,9 +17,6 @@ if __name__ == "__main__":
     cur = db.cursor()
 
     cur.execute(
-        "SELECT cities.name FROM states JOIN cities ON states.id\
-= cities.state_id WHERE states.name = \"{}\"".format(state_name))
-    data = []
-    for row in cur.fetchall():
-        data.append(row[0])
-    print(", ".join(data))
+        "SELECT `cities`.name FROM `states` JOIN `cities` ON `states`.id\
+= `cities`.state_id WHERE `states`.name = %s", (state_name,))
+    print(", ".join([row[0] for row in cur.fetchall()]))
