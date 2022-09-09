@@ -17,8 +17,8 @@ if __name__ == "__main__":
     cur = db.cursor()
 
     cur.execute(
-        """SELECT * FROM states WHERE BINARY\
- name = "{}" """.format(user_input))
+        """SELECT * FROM `states` WHERE BINARY\
+ `states`.name = %s """, (user_input,))
 
     for row in cur.fetchall():
         print(row)
