@@ -15,8 +15,8 @@ if __name__ == "__main__":
     cur = db.cursor()
 
     cur.execute(
-        "SELECT cities.id , cities.name , states.name FROM states\
-JOIN cities ON states.id = cities.state_id")
+        "SELECT `cities`.id, `cities`.name, `states`.name FROM `states`\
+JOIN `cities` ON `states`.id = `cities`.state_id")
 
     for row in cur.fetchall():
         print(row)
