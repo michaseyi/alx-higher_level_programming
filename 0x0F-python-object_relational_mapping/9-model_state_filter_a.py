@@ -4,21 +4,8 @@ an instance of Base = declarative_base()"""
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Column, Integer, String, create_engine
+from model_state import Base, State
 import sys
-
-Base = declarative_base()
-
-
-class State(Base):
-    """Represents the states table. Define objects that map to
-    rows in the states table
-    """
-
-    __tablename__ = "states"
-
-    id = Column('id', Integer, primary_key=True)
-    name = Column('name', String(128), nullable=False)
-
 
 if __name__ == "__main__":
     url = 'mysql+mysqldb://{}:{}@localhost/{}'.format(
