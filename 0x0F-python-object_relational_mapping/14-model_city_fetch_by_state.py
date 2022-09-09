@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-"""This module deletes from rows from a database table"""
-from sqlalchemy.ext.declarative import declarative_base
+"""This module displays all cities in the database"""
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import Column, Integer, String, create_engine
+from sqlalchemy import create_engine
 from model_state import Base, State
+from model_city import City
 import sys
 
 if __name__ == "__main__":
@@ -13,6 +13,9 @@ if __name__ == "__main__":
     Session = sessionmaker(engine)
     session = Session()
 
-    for state in session.query(State).filter(State.name.like('%a%')):
-        session.delete(state)
-    session.commit()
+    for city in session.query(City):
+        print("{}: ({}) {}".format(
+            city.state.name,
+            city.id,
+            city.name
+        ))
