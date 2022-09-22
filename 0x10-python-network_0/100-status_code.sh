@@ -1,3 +1,3 @@
 #!/bin/bash
 # displays status code of response
-curl -si "$1" | head -n1 | cut --delim=' ' --field=2
+curl -s -o /dev/null -w "%{http_code}" "$1"
