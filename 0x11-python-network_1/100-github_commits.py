@@ -18,4 +18,4 @@ if __name__ == "__main__":
             author = commit.get("commit").get("author").get("name")
             print("{}: {}".format(sha, author))
     except BaseException:
-        ...
+        pass
