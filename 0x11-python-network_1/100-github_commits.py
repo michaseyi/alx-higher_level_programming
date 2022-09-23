@@ -9,11 +9,10 @@ if __name__ == "__main__":
         sys.argv[1],
         sys.argv[2]
     )
-    params = {"per_page": 10, "page": 1}
-    response = requests.get(url, params=params)
+    response = requests.get(url)
     try:
         commits = response.json()
-        for commit in commits:
+        for commit in commits[:10]:
             sha = commit.get("sha")
             author = commit.get("commit").get("author").get("name")
             print("{}: {}".format(sha, author))
