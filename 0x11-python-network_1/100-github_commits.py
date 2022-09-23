@@ -9,14 +9,13 @@ if __name__ == "__main__":
         sys.argv[1],
         sys.argv[2]
     )
-    params = {"per_page": 1000, "page": 1}
+    params = {"per_page": 10, "page": 1}
     response = requests.get(url, params=params)
     try:
         commits = response.json()
-        for commit in commits[:10]:
-            sha = commit["sha"]
-            author = commit["commit"]["author"]["name"]
-            date = commit["commit"]["author"]["date"]
+        for commit in commits:
+            sha = commit.get("sha")
+            author = commit.get("commit").get("author").get("name")
             print("{}: {}".format(sha, author))
     except BaseException:
         ...
