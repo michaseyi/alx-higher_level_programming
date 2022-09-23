@@ -9,12 +9,11 @@ if __name__ == "__main__":
         sys.argv[1],
         sys.argv[2]
     )
-    params = {"per_page": 10}
-    response = requests.get(url, params=params)
+    response = requests.get(url)
     try:
         commits = response.json()
         commits.sort(key=lambda x: x["commit"]["author"]["date"], reverse=True)
-        for commit in commits:
+        for commit in commits[:10]:
             sha = commit["sha"]
             author = commit["commit"]["author"]["name"]
             date = commit["commit"]["author"]["date"]
