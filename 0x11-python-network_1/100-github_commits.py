@@ -9,7 +9,8 @@ if __name__ == "__main__":
         sys.argv[1],
         sys.argv[2]
     )
-    response = requests.get(url)
+    params = {"per_page": 1000, "page": 1}
+    response = requests.get(url, params=params)
     try:
         commits = response.json()
         commits.sort(key=lambda x: x["commit"]["author"]["date"], reverse=True)
