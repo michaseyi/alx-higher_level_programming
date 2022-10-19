@@ -16,13 +16,15 @@ function parseBody (stream) {
 request.get(`https://swapi-api.hbtn.io/api/films/${process.argv[2]}`).on('response', async (res) => {
   await parseBody(res);
   const characters = res.body.characters;
-  for (const character of characters) {
-    await new Promise(resolve => {
+  const promises = characters.map(character => {
+    return new Promise(resolve => {
       request.get(character).on('response', async (res) => {
         await parseBody(res);
-        console.log(res.body.name);
-        resolve();
+        resolve(res.body.name);
       });
     });
+  });
+  for (const character of await Promise.all(promises)) {
+    console.log(character);
   }
 });
